@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:live_chat/widgets/common/social_login_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SigninPage extends StatelessWidget {
   @override
@@ -50,10 +51,22 @@ class SigninPage extends StatelessWidget {
               buttonIcon: Icon(Icons.mail,color: Colors.white,),
               onPressed: () {},
             ),
+            SocialLoginButton(
+              buttonText: "Misafir girişi",
+              buttonColor: Colors.lightGreen,
+              textColor: Colors.white,
+              buttonIcon: Icon(Icons.verified_user,color: Colors.white,),
+              onPressed: _misafirGirisi,
+            ),
           ],
         ),
       ),
     );
   }
 
+  void _misafirGirisi() async {
+    AuthResult authResult = await FirebaseAuth.instance.signInAnonymously();
+    print("Oturum Açan User Id" + authResult.user.uid.toString());
+  }
 }
+

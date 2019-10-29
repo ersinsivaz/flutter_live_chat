@@ -36,7 +36,7 @@ class SocialLoginButton extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      buttonIcon,
+                      buttonIcon !=null ? buttonIcon : Container(),
                       Text(buttonText,style: TextStyle(color: textColor),),
                       Text(""),
                     ],
