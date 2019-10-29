@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:live_chat/pages/signin_page.dart';
+import 'package:live_chat/pages/landing_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple
       ),
-      home: SigninPage(),
+      home: LandingPage(),
     );
   }
 
