@@ -66,7 +66,7 @@ class SigninPage extends StatelessWidget {
 
   void _misafirGirisi() async {
     AuthResult authResult = await FirebaseAuth.instance.signInAnonymously();
-    print("Oturum Açan User Id" + authResult.user.uid.toString());
+    //print("Oturum Açan User Id" + authResult.user.uid.toString());
   }
 }
 
