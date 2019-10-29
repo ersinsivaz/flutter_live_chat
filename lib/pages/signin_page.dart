@@ -43,7 +43,7 @@ class SigninPage extends StatelessWidget {
               textColor: Colors.white,
               buttonIcon: Icon(Icons.mail,color: Colors.white,),
               onPressed: () {},
-            )
+            ),
           ],
         ),
       ),
