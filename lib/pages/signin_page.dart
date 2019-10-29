@@ -26,14 +26,20 @@ class SigninPage extends StatelessWidget {
               buttonText: "Gmail ile oturum aç",
               buttonColor: Colors.white,
               textColor: Colors.black87,
-              buttonIcon: Image.asset("images/gmail-logo.jpg"),
+              buttonIcon: SizedBox(
+                height: 32,
+                child: Image.asset("images/gmail-logo.jpg")
+                ),
               onPressed: () {},
             ),
             SocialLoginButton(
               buttonColor: Color(0xFF334D92),
               buttonText: "Facebook ile oturum aç",
               textColor: Colors.white,
-              buttonIcon: Image.asset("images/gmail-logo.jpg"),
+              buttonIcon: SizedBox(
+                height: 32,
+                child: Image.asset("images/facebook-logo.png")
+                ),
               radius: 16.0,
               onPressed: () {},
             ),
