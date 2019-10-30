@@ -4,6 +4,16 @@ import 'package:live_chat/widgets/common/social_login_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SigninPage extends StatelessWidget {
+  final Function(FirebaseUser) onSignIn;
+
+  const SigninPage({Key key, @required this.onSignIn}) : super(key: key);
+
+  void _misafirGirisi() async {
+    AuthResult authResult = await FirebaseAuth.instance.signInAnonymously();
+    onSignIn(authResult.user);
+    print("Oturum Açan User Id" + authResult.user.uid.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,9 +74,6 @@ class SigninPage extends StatelessWidget {
     );
   }
 
-  void _misafirGirisi() async {
-    AuthResult authResult = await FirebaseAuth.instance.signInAnonymously();
-    print("Oturum Açan User Id" + authResult.user.uid.toString());
-  }
+  
 }
 
