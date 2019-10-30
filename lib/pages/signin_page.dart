@@ -1,17 +1,20 @@
 
 import 'package:flutter/material.dart';
+import 'package:live_chat/models/user_model.dart';
+import 'package:live_chat/services/auth_base_service.dart';
 import 'package:live_chat/widgets/common/social_login_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 class SigninPage extends StatelessWidget {
-  final Function(FirebaseUser) onSignIn;
+  final AuthBaseService authService;
+  final Function(User) onSignIn;
 
-  const SigninPage({Key key, @required this.onSignIn}) : super(key: key);
+  const SigninPage({Key key,@required this.authService, @required this.onSignIn}) : super(key: key);
 
   void _misafirGirisi() async {
-    AuthResult authResult = await FirebaseAuth.instance.signInAnonymously();
-    onSignIn(authResult.user);
-    print("Oturum Açan User Id" + authResult.user.uid.toString());
+    User _user = await authService.signInAnonymously();
+    onSignIn(_user);
+    print("Oturum Açan User Id" + _user.userId);
   }
 
   @override

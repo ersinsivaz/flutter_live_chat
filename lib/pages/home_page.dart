@@ -1,13 +1,17 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:live_chat/models/user_model.dart';
+import 'package:live_chat/services/auth_base_service.dart';
 
 class HomePage extends StatelessWidget {
-  final FirebaseUser user;
-  final VoidCallback onSignOut;
 
-  HomePage({Key key, this.user, @required this.onSignOut}) : super(key: key);
+  final VoidCallback onSignOut;
+  final AuthBaseService authService;
+  final User user;
+
+  HomePage({Key key, @required this.authService, @required this.user ,@required this.onSignOut}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
+    
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -19,13 +23,14 @@ class HomePage extends StatelessWidget {
                     title: Text("Anasayfa"),
                   ),
                   body: Center(
-                    child: Text("Hoşgeldiniz: ${user.uid}"),
+                    child: Text("Hoşgeldiniz: ${user.userId}"),
                   ),
                 );
               }
             
- Future<void> _cikisYap() async {
-    await FirebaseAuth.instance.signOut();
+ Future<bool> _cikisYap() async {
+    bool sonuc = await authService.signOut();
     onSignOut();
+    return sonuc;
 }             
 }

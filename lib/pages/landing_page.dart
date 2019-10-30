@@ -1,15 +1,19 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:live_chat/models/user_model.dart';
 import 'package:live_chat/pages/home_page.dart';
 import 'package:live_chat/pages/signin_page.dart';
+import 'package:live_chat/services/auth_base_service.dart';
 
 class LandingPage extends StatefulWidget {
+  final AuthBaseService authService;
+
+  const LandingPage({Key key, @required this.authService}) : super(key: key);
   @override
   _LandingPageState createState()=>_LandingPageState();
 }
 
 class _LandingPageState extends State<LandingPage> {
-  FirebaseUser _user;
+  User _user;
 
   @override
   void initState() {
@@ -20,6 +24,7 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     if(_user == null){
       return SigninPage(
+        authService: widget.authService,
         onSignIn: (user){
           _updateUser(user);
         },
@@ -27,6 +32,7 @@ class _LandingPageState extends State<LandingPage> {
     } else {
       return HomePage(
         user: _user,
+        authService: widget.authService,
         onSignOut: (){
           _updateUser(null);
         },
@@ -35,10 +41,10 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   Future<void> _checkUser() async {
-    _user = await FirebaseAuth.instance.currentUser();
+    _user = await widget.authService.currentUser();
   }
 
-  void _updateUser(FirebaseUser user){
+  void _updateUser(User user){
     setState(() {
       _user = user;
     });
