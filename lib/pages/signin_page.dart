@@ -1,15 +1,18 @@
 
 import 'package:flutter/material.dart';
+import 'package:live_chat/locator.dart';
 import 'package:live_chat/models/user_model.dart';
-import 'package:live_chat/services/auth_base_service.dart';
+import 'package:live_chat/services/firebase_auth_service.dart';
 import 'package:live_chat/widgets/common/social_login_button.dart';
 
 
 class SigninPage extends StatelessWidget {
-  final AuthBaseService authService;
+  
   final Function(User) onSignIn;
 
-  const SigninPage({Key key,@required this.authService, @required this.onSignIn}) : super(key: key);
+  SigninPage({Key key, @required this.onSignIn}) : super(key: key);
+
+  final authService = locator<FirebaseAuthService>();
 
   void _misafirGirisi() async {
     User _user = await authService.signInAnonymously();

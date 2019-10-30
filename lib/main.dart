@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:live_chat/locator.dart';
 import 'package:live_chat/pages/landing_page.dart';
-import 'package:live_chat/services/firebase_auth_service.dart';
 
 
-void main() => runApp(MyApp());
+void main() {
+  setupLocator();
+  runApp(MyApp());
+} 
 
 class MyApp extends StatelessWidget {
   @override
@@ -14,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple
       ),
-      home: LandingPage(authService: FirebaseAuthService(),),
+      home: LandingPage(),
     );
   }
 
