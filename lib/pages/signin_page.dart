@@ -1,27 +1,22 @@
 
 import 'package:flutter/material.dart';
-import 'package:live_chat/locator.dart';
 import 'package:live_chat/models/user_model.dart';
-import 'package:live_chat/services/firebase_auth_service.dart';
+import 'package:live_chat/viewModels/user_view_model.dart';
 import 'package:live_chat/widgets/common/social_login_button.dart';
+import 'package:provider/provider.dart';
 
 
 class SigninPage extends StatelessWidget {
   
-  final Function(User) onSignIn;
-
-  SigninPage({Key key, @required this.onSignIn}) : super(key: key);
-
-  final authService = locator<FirebaseAuthService>();
-
-  void _misafirGirisi() async {
-    User _user = await authService.signInAnonymously();
-    onSignIn(_user);
+  void _misafirGirisi(BuildContext context) async {
+    final _userModel = Provider.of<UserModel>(context);
+    User _user = await _userModel.signInAnonymously();
     print("Oturum Açan User Id" + _user.userId);
   }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: Text("Flutter Lovers"),
@@ -72,7 +67,7 @@ class SigninPage extends StatelessWidget {
               buttonColor: Colors.lightGreen,
               textColor: Colors.white,
               buttonIcon: Icon(Icons.verified_user,color: Colors.white,),
-              onPressed: _misafirGirisi,
+              onPressed: () =>_misafirGirisi(context),
             ),
           ],
         ),

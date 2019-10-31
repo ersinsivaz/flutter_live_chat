@@ -7,9 +7,17 @@ import 'package:live_chat/services/auth_base_service.dart';
 enum ViewState {Idle, Busy}
 
 class UserModel with ChangeNotifier implements AuthBaseService {
+
+
   ViewState _state = ViewState.Idle;
   UserRepository _userRepository = locator<UserRepository>();
   User _user;
+
+  UserModel(){
+    currentUser();
+  }
+
+  User get user => _user;
 
   ViewState get state => _state;
 
@@ -50,7 +58,9 @@ class UserModel with ChangeNotifier implements AuthBaseService {
   Future<bool> signOut() async {
     try{
       state = ViewState.Busy;
-      return await _userRepository.signOut();
+      bool sonuc = await _userRepository.signOut();
+      _user = null;
+      return sonuc;
   
     } catch(e){
       debugPrint("UserMOdel signOut user hata : " + e.toString());

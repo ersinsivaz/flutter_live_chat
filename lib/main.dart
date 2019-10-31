@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:live_chat/locator.dart';
 import 'package:live_chat/pages/landing_page.dart';
+import 'package:live_chat/viewModels/user_view_model.dart';
+import 'package:provider/provider.dart';
 
 
 void main() {
@@ -17,7 +19,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple
       ),
-      home: LandingPage(),
+      home: ChangeNotifierProvider(
+        builder: (context) => UserModel(),
+        child: LandingPage()
+        ),
     );
   }
 
