@@ -1,19 +1,36 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:live_chat/models/user_model.dart';
+import 'package:live_chat/viewModels/user_view_model.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  final FirebaseUser user;
 
-  HomePage({Key key, this.user}) : super(key: key);
+  final User user;
+
+  HomePage({Key key,  @required this.user}) : super(key: key);
+  
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
+     
     return Scaffold(
       appBar: AppBar(
-        title: Text("Anasayfa"),
-      ),
-      body: Center(
-        child: Text("Hoşgeldiniz: ${user.uid}"),
-      ),
-    );
-  }
+        actions: <Widget>[
+          FlatButton(
+            child: Text("Çıkış Yap",style: TextStyle(color: Colors.white),),
+            onPressed: () => _cikisYap(context),
+                      ),
+                    ],
+                    title: Text("Anasayfa"),
+                  ),
+                  body: Center(
+                    child: Text("Hoşgeldiniz: ${user.userId}"),
+                  ),
+                );
+              }
+            
+ Future<bool> _cikisYap(BuildContext context) async {
+   final _userModel = Provider.of<UserModel>(context);
+    bool sonuc = await _userModel.signOut();
+    return sonuc;
+}             
 }

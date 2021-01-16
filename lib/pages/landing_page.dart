@@ -1,31 +1,40 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:live_chat/pages/home_page.dart';
 import 'package:live_chat/pages/signin_page.dart';
+import 'package:live_chat/viewModels/user_view_model.dart';
+import 'package:provider/provider.dart';
 
-class LandingPage extends StatefulWidget {
-  @override
-  _LandingPageState createState()=>_LandingPageState();
-}
+import 'home_page.dart';
+import 'signin_page.dart';
 
-class _LandingPageState extends State<LandingPage> {
-  FirebaseUser _user;
-
-  @override
-  void initState() {
-    super.initState();
-    _checkUser();
-  }
+class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    if(_user == null){
+
+    final _userModel = Provider.of<UserModel>(context);
+
+    if(_userModel.state == ViewState.Idle){
+      if(_userModel.user == null){
+        return SigninPage();
+      }else {
+        return HomePage(user: _userModel.user,);
+      }
+    } else {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    if(_userModel.user == null){
       return SigninPage();
     } else {
-      return HomePage(user: _user,);
+      return HomePage(
+        user: _userModel.user,
+        );
     }
   }
 
-  Future<void> _checkUser() async {
-    _user = await FirebaseAuth.instance.currentUser();
-  }
+  
 }
